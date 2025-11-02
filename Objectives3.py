@@ -18,26 +18,67 @@ This investigation aims to uncover **socio-structural drivers of crime**, provid
 evidence-based urban policy and targeted community safety interventions.  
 """)
 
-# ===================== LOAD DATA =====================
+# ---------------------------------------------------------
+# LOAD DATA
+# ---------------------------------------------------------
 url = "https://raw.githubusercontent.com/s22a0064-AinMaisarah/Crime/refs/heads/main/df_crime_cleaned.csv"
 df = pd.read_csv(url)
 
-with st.expander("📂 About the Dataset"):
-    st.write("""
-This dataset was originally titled **“Uber and Urban Crime”**, published by Bryan Weber (2019, Mendeley Database).  
-It includes socio-demographic and crime statistics across U.S. cities, focusing on relationships between  
-**urban population characteristics and crime distribution**.
-
-In this section, the focus is on:
-- Gender ratio (Male population %)
-- Age groups
-- Education attainment levels  
-
-and how they relate to **violent, property, white-collar, and social crimes**.
-""")
-
 st.success("✅ Dataset Loaded Successfully")
-st.dataframe(df.head())
+
+# ===================== DATASET INFORMATION =====================
+with st.expander("📂 About This Dataset"):
+    st.write("""
+This dataset, originally titled **"Uber and Urban Crime"**, was published on  
+**12 October 2019** by *Bryan Weber* on **Mendeley Data**.  
+
+Although associated with mobility (Uber) in its original context, the primary focus here is to examine  
+**urban crime patterns** and evaluate how crime types vary across different demographic environments.
+
+### 🧾 Crime Classification Framework
+
+For this study, crime indicators have been grouped into four structured categories:
+
+#### 1) **Violent Crimes**
+Crimes involving force or threat of force:
+- homicide  
+- kidnapping  
+- sex_forcible  
+- robbery  
+- assault  
+- weapon_violations  
+- human_traffic  
+
+#### 2) **Property Crimes**
+Crimes involving theft, damage, or unlawful property access:
+- burglary_bne  
+- larceny_theft  
+- motor_vehicle_theft  
+- arson  
+- stolen_property  
+- destruction_property  
+
+#### 3) **White-Collar / Financial Crimes**
+Non-violent, financially motivated offenses:
+- counterfit_forge  
+- fraud  
+- embezzelment  
+- extortion_blackmail  
+
+#### 4) **Moral / Social Offenses**
+Crimes involving moral, social, or public-order violations:
+- drug_offenses  
+- sex_nonforcible  
+- porn  
+- prostitution  
+- gambling  
+
+---
+    """)
+
+
+st.subheader("🧾 Dataset Preview")
+st.dataframe(df.head(), use_container_width=True)
 
 # ===================== SUMMARY METRICS =====================
 st.subheader("📊 Summary Metrics")
