@@ -17,7 +17,7 @@ st.set_page_config(
 
 # Sidebar Navigation & Info
 with st.sidebar:
-    st.title("📊 Crime Analytics Dashboard")
+    st.title("📊 Crime Analytics Dashboard Menu")
     
     st.write(
         "Gain insights into relationships between socioeconomic factors "
