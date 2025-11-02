@@ -34,45 +34,37 @@ scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
 # ================= SUMMARY METRICS =================
-st.subheader("📌 Key Summary Metrics")
+st.subheader("📌 Summary Metrics")
 
 col1, col2, col3, col4 = st.columns(4)
 
-with col1:
-    st.markdown("""
-    <div class="kpi-card">
-        <div class="kpi-title">Crime Variables</div>
-        <div class="kpi-value">4</div>
-        <div class="kpi-sub">Feature Count</div>
-    </div>
-    """, unsafe_allow_html=True)
+col1.metric(
+    label="Crime Features",
+    value="4",
+    help="Number of crime variables used for clustering: violent, property, white-collar, social",
+    border=True
+)
 
-with col2:
-    st.markdown("""
-    <div class="kpi-card">
-        <div class="kpi-title">K-Means Clusters</div>
-        <div class="kpi-value">3</div>
-        <div class="kpi-sub">Optimal k Detected</div>
-    </div>
-    """, unsafe_allow_html=True)
+col2.metric(
+    label="Optimal Clusters (k)",
+    value="3",
+    help="K-Means clustering determined 3 optimal crime pattern clusters",
+    border=True
+)
 
-with col3:
-    st.markdown("""
-    <div class="kpi-card">
-        <div class="kpi-title">PCA Components</div>
-        <div class="kpi-value">2</div>
-        <div class="kpi-sub">Dimensional Reduction</div>
-    </div>
-    """, unsafe_allow_html=True)
+col3.metric(
+    label="PCA Components",
+    value="2",
+    help="2 principal components used for dimensionality reduction and visualization",
+    border=True
+)
 
-with col4:
-    st.markdown("""
-    <div class="kpi-card">
-        <div class="kpi-title">Dataset Cities</div>
-        <div class="kpi-value">""" + str(df.shape[0]) + """</div>
-        <div class="kpi-sub">Records Analyzed</div>
-    </div>
-    """, unsafe_allow_html=True)
+col4.metric(
+    label="Dataset Records",
+    value=str(df.shape[0]),
+    help="Total number of locations/rows analyzed in the dataset",
+    border=True
+)
 
 
 # =============== 1️⃣ ELBOW METHOD ===============
