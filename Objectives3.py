@@ -4,15 +4,18 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 # ===================== PAGE CONFIG =====================
-st.set_page_config(page_title="Objective 3 — Demographics & Crime Patterns", layout="wide")
+st.set_page_config(page_title="Male Population, Age and Education Level Influence Crime Patterns", layout="wide")
 
 # ===================== PAGE HEADER =====================
-st.title("🧠 Objective 3 — Demographic Influence on Crime Categories")
+st.title("🧠 Objective 3 — Male Population, Age and Education Level Influence Crime Patterns")
 
 st.markdown("""
 ### 🎯 Objective  
-To analyze how demographics — **gender ratio, age distribution, and education level** — influence different crime categories across cities.  
-This helps identify social factors linked with crime behavior and urban safety patterns.  
+To critically evaluate how **demographic indicators**, specifically **gender composition, age structure, and educational attainment**,  
+shape the distribution of various crime categories within urban settings.  
+
+This investigation aims to uncover **socio-structural drivers of crime**, providing a foundation for  
+evidence-based urban policy and targeted community safety interventions.  
 """)
 
 # ===================== LOAD DATA =====================
@@ -126,20 +129,50 @@ st.plotly_chart(fig_violin, use_container_width=True)
 
 st.info("📍 *Higher education levels correlate with lower violent crime but mixed trends for white-collar crime.*")
 
-# ===================== INTERPRETATION =====================
+# ---------------------------------------------------------
+# 🧠 Final Insight & Interpretation
+# ---------------------------------------------------------
+
+st.subheader("🧠 Final Insight & Interpretation")
+
 st.markdown("""
----
+Demographics play a fundamental role in shaping crime behavior in cities.  
+Findings indicate that male-dominant, youthful, and lower-education populations  
+are consistently associated with higher urban crime exposure, particularly violent and property crimes.  
 
-### 🧠 Final Insight & Interpretation
-
-Demographic factors play a significant role in shaping crime trends:
-
-- **Higher male population cities** tend to show **greater violent and property crime**
-- **Younger cities** show elevated **social and property offenses**
-- **Higher education attainment** appears protective for **violent crime**,  
-  but **white-collar crime** may increase in highly educated areas
-
-These findings underline the importance of **community-level social development** in crime prevention.
-
----
+Conversely, regions with greater higher-education attainment show reduced physical crime rates but exhibit  
+greater white-collar crime concentration, aligning with socio-economic opportunity structures.
 """)
+# ---------------------------------------------------------
+# 🎯 KEY TAKEAWAYS
+# ---------------------------------------------------------
+st.subheader("🎯 Key Takeaways")
+
+st.markdown("""
+- 🔹 Higher male population ratio → Higher violent & property crime
+- 🔹 Younger demographic clusters → Elevated social & property offenses
+- 🔹 Higher education → Decrease in violent crime; increase in white-collar activity
+- 🔹 Education emerges as a protective socio-economic factor
+- 🔹 Crime is multidimensional, influenced by **population structure + opportunity + economic pressure
+""")
+
+# ---------------------------------------------------------
+# ✅ POLICY IMPLICATIONS
+# ---------------------------------------------------------
+
+st.subheader("✅ Policy & Research Implications")
+
+st.markdown("""
+Urban Policy Recommendations
+- 📍 Prioritize youth employment and community programs in younger-populated districts  
+- 📍 Expand education & skill-development pipelines to reduce physical crime occurrence  
+- 📍 Strengthen cyber-security & financial fraud monitoring in highly educated areas  
+- 📍 Implement gender-focused community safety initiatives in male-skewed regions  
+
+Research Recommendations
+- 🔬 Further studies should integrate income inequality, migration patterns, and policing levels
+- 🧪 Build predictive models to forecast crime risk by demographic shifts
+- 🌍 Apply this model to Asian & European datasets to validate cross-regional patterns
+""")
+
+st.success("📎 This demographic-crime analysis strengthens the urban planning, criminology, and public-policy nexus through data-driven insight.")
