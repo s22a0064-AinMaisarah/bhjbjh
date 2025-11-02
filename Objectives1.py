@@ -33,12 +33,47 @@ X = df[features]
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
-# ✅ SUMMARY METRICS
+# ================= SUMMARY METRICS =================
+st.subheader("📌 Key Summary Metrics")
+
 col1, col2, col3, col4 = st.columns(4)
-col1.metric("📌 Feature Count", "4 Crime Variables")
-col2.metric("⚙️ Model", "K-Means (k=3)")
-col3.metric("📈 PCA Components", "2 Dimensions")
-col4.metric("✅ Output", "3 Crime Clusters")
+
+with col1:
+    st.markdown("""
+    <div class="kpi-card">
+        <div class="kpi-title">Crime Variables</div>
+        <div class="kpi-value">4</div>
+        <div class="kpi-sub">Feature Count</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown("""
+    <div class="kpi-card">
+        <div class="kpi-title">K-Means Clusters</div>
+        <div class="kpi-value">3</div>
+        <div class="kpi-sub">Optimal k Detected</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col3:
+    st.markdown("""
+    <div class="kpi-card">
+        <div class="kpi-title">PCA Components</div>
+        <div class="kpi-value">2</div>
+        <div class="kpi-sub">Dimensional Reduction</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col4:
+    st.markdown("""
+    <div class="kpi-card">
+        <div class="kpi-title">Dataset Cities</div>
+        <div class="kpi-value">""" + str(df.shape[0]) + """</div>
+        <div class="kpi-sub">Records Analyzed</div>
+    </div>
+    """, unsafe_allow_html=True)
+
 
 # =============== 1️⃣ ELBOW METHOD ===============
 st.subheader("1️⃣ Elbow Method — Finding Best Number of Clusters")
