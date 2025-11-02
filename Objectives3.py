@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 st.set_page_config(page_title="Male Population, Age and Education Level Influence Crime Patterns", layout="wide")
 
 # ===================== PAGE HEADER =====================
-st.title("🧠 Objective 3 — Male Population, Age and Education Level Influence Crime Patterns")
+st.title("🚨 Male Population, Age and Education Level Influence Crime Patterns")
 
 st.markdown("""
 ### 🎯 Objective  
