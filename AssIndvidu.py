@@ -1,34 +1,17 @@
 import streamlit as st
 
-# ------------------------------------------------------------
-# Page Setup
-# ------------------------------------------------------------
-st.set_page_config(page_title="Urban Crime Analytics Visualization Dashboard", layout="wide")
+st.set_page_config(page_title="Crime Analytics Dashboard")
 
-# Header title
-st.header("Explore trends, hotspots, and patterns through interactive visuals")
+# Import pages
+page1 = st.Page("Objectives1.py", title="K-Means Clustering + PCA", icon=":material/analytics:")
+page2 = st.Page("Objectives2.py", title="Income vs Crime", icon=":material/scatter_plot:")
+page3 = st.Page("Objectives3.py", title="Radar Chart by Age Group", icon=":material/radar:")
 
-# Intro paragraph
-st.write(
-    """
-    This dashboard presents an interactive visualization of urban crime data, enabling a deeper understanding 
-    of crime distribution and supporting data-driven decision-making for urban safety and policy planning.
-    """
+# Navigation
+navigation = st.navigation(
+    {
+        "Crime Analysis Dashboard": [page1, page2, page3]
+    }
 )
 
-# Dataset information
-st.write(
-    """
-   This dataset, originally titled "Uber and Urban Crime" (published by Bryan Weber, 2019),
-   focuses primarily on crime-related data within urban environments. The analysis emphasizes
-   the crime dimension—exploring patterns, frequency, and distribution of incidents in cities.
-    """
-)
-
-# Navigation Pages
-page1 = st.Page("pages/Objectives1.py", title="Distribution and Correlation", icon=":material/bar_chart:")
-page2 = st.Page("pages/Objectives2.py", title="Group Comparisons and Chronotype", icon=":material/groups:")
-page3 = st.Page("pages/Objectives3.py", title="Preferred Start Time & Correlation Matrix", icon=":material/timeline:")
-
-pg = st.navigation({"Menu": [page1, page2, page3]})
-pg.run()
+navigation.run()
