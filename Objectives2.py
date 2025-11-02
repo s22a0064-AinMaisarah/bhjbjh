@@ -14,12 +14,13 @@ To investigate how income levels and poverty rates influence overall crime incid
 This analysis aims to determine whether socioeconomic disparities serve as predictors of crime intensity, providing insights into how economic conditions shape urban crime dynamics.
 """)
 
-# Load Data
+# ---------------------------------------------------------
+# LOAD DATA
+# ---------------------------------------------------------
 url = "https://raw.githubusercontent.com/s22a0064-AinMaisarah/Crime/refs/heads/main/df_crime_cleaned.csv"
 df = pd.read_csv(url)
 
-st.success("✅ Dataset Loaded")
-st.dataframe(df.head())
+st.success("✅ Dataset Loaded Successfully")
 
 # Dataset Info
 with st.expander("📂 About This Dataset"):
@@ -31,6 +32,7 @@ Although Uber is mentioned, the primary purpose here is to analyze **urban crime
 
 st.subheader("🧾 Dataset Preview")
 st.dataframe(df.head(), use_container_width=True)
+
 
 # ====================== SUMMARY METRICS ======================
 st.markdown("### 📊 Key Dataset Summary")
