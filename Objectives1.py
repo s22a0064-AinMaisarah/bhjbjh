@@ -14,8 +14,10 @@ st.title("📊 Crime Pattern Clustering & PCA Visualization Dashboard")
 # OBJECTIVE
 st.markdown("""
 ### 🎯 Objective  
-This dashboard identifies crime patterns across Malaysian cities by applying K-Means clustering and PCA.
-It helps classify cities into crime groups based on violent, property, white-collar, and social crime rates.
+The objective of using K-Means clustering is to group cities into three distinct clusters 
+based on their crime profiles including violent, property, white-collar, and social crimes. 
+This allows cities with similar crime patterns to be categorized together, supporting clearer 
+comparisons across locations and enabling targeted crime-prevention strategies.
 """)
 
 # --- Load Dataset ---
@@ -24,6 +26,17 @@ df = pd.read_csv(url)
 
 st.success("✅ Dataset Loaded Successfully")
 st.dataframe(df.head())
+
+# ================= Dataset Information =================
+st.subheader("📂 Dataset Description")
+
+st.write("""
+This dataset, originally titled **'Uber and Urban Crime'** and published on **12 October 2019** by *Bryan Weber* on **Mendeley Data**, 
+contains urban crime statistics across U.S. cities. Although it references Uber activity, this dashboard focuses specifically on the **crime variables**.
+
+The analysis emphasizes crime patterns, category distribution, and clustering behavior across regions, enabling 
+data-driven insights into crime groupings and regional similarities.
+""")
 
 # --- Features ---
 features = ['violent_crime', 'property_crime', 'whitecollar_crime', 'social_crime']
@@ -66,7 +79,6 @@ col4.metric(
     border=True
 )
 
-
 # =============== 1️⃣ ELBOW METHOD ===============
 st.subheader("1️⃣ Elbow Method — Finding Best Number of Clusters")
 
@@ -85,14 +97,13 @@ fig_elbow = px.line(
 )
 st.plotly_chart(fig_elbow, use_container_width=True)
 
-# Short Explanation
-st.info("📍 *The elbow point shows k = 3 is optimal — meaning three crime pattern groups exist.*")
+st.info("📍 *The elbow point shows k = 3 is optimal — indicating three main crime patterns.*")
 
 # Choose k=3
 kmeans = KMeans(n_clusters=3, random_state=42, n_init=10)
 df['crime_cluster'] = kmeans.fit_predict(X_scaled)
 
-# =============== 2️⃣ PCA CLUSTER VISUALIZATION ===============
+# =============== 2️⃣ PCA VISUALIZATION ===============
 st.subheader("2️⃣ PCA Visualization — Crime Pattern Groups")
 
 pca = PCA(n_components=2)
@@ -106,8 +117,7 @@ fig_pca = px.scatter(
 )
 st.plotly_chart(fig_pca, use_container_width=True)
 
-# Short Explanation
-st.info("📍 *PCA clearly separates cities into three clusters, showing distinct crime behavior patterns.*")
+st.info("📍 *PCA confirms strong separation between clusters, revealing unique crime behavior patterns.*")
 
 # =============== 3️⃣ CLUSTER PROFILE BAR CHART ===============
 st.subheader("3️⃣ Crime Type Profile by Cluster")
@@ -127,22 +137,22 @@ fig_bar = px.bar(
 )
 st.plotly_chart(fig_bar, use_container_width=True)
 
-# Short Explanation
-st.info("📍 *Cluster comparison shows which crime types are dominant in each group.*")
+st.info("📍 *Each cluster shows different dominant crime types, highlighting varied regional crime patterns.*")
 
 st.success("✅ All visualizations generated successfully!")
 
-# =============== 📌 INTERPRETATION / DISCUSSION ===============
+# =============== INTERPRETATION ===============
 st.markdown("""
 ---
 
 ### 🧐 Interpretation & Discussion  
 
-The analysis reveals three clear crime clusters across cities.  
-One cluster shows high violent and property crime, indicating high-risk areas requiring focused law enforcement.  
-Another cluster reflects moderate crime levels across all categories, while the last cluster represents low-crime regions.  
-The PCA visualization confirms strong separation between these groups, proving that crime types are closely related and form meaningful patterns.  
-These insights help authorities prioritize hotspot areas, allocate security resources, and plan targeted crime-prevention strategies.
+The clustering analysis reveals **three distinct crime behavior patterns** across cities.  
+One cluster represents **high-crime zones**, particularly in violent and property crime.  
+Another shows **moderate and balanced crime levels**, while the final cluster consists of **low-crime cities**.
+
+The PCA visualization validates meaningful separation between crime groups, demonstrating clear structural patterns within the data.  
+These insights provide a foundation for policymakers and law enforcement to allocate resources, monitor high-risk regions, and plan targeted crime-reduction interventions.
 
 ---
 """)
