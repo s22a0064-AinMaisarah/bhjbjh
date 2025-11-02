@@ -15,12 +15,24 @@ st.set_page_config(
     layout="wide"
 )
 
-# Sidebar (future navigation)
+# Sidebar Navigation & Info
 with st.sidebar:
-    st.title("📊 Crime Dashboard")
-    st.write("Explore clustering patterns & PCA insights")
+    st.title("📊 Crime Analytics Dashboard")
+    
+    st.write(
+        "Gain insights into relationships between socioeconomic factors "
+        "and crime patterns across cities."
+    )
+    
     st.markdown("---")
-    st.caption("Developed by Ain Maisarah 🌟")
+    
+    st.subheader("📂 Navigation")
+    st.info("Use the menu to explore different analysis modules.")
+    
+    st.markdown("---")
+    
+    st.caption("👩🏻‍💻 Created by Nurul Ain Maisarah Hamidin © 2025 | Scientific Visualization Project 🌟")
+
 
 # ---------------------------------------------------------
 # PAGE HEADER
