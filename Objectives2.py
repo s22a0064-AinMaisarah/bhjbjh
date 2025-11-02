@@ -22,17 +22,59 @@ df = pd.read_csv(url)
 
 st.success("✅ Dataset Loaded Successfully")
 
-# Dataset Info
+# ===================== DATASET INFORMATION =====================
 with st.expander("📂 About This Dataset"):
     st.write("""
-This dataset, originally titled **"Uber and Urban Crime"** and published on **12 Oct 2019** by *Bryan Weber (Mendeley)*,
-focuses on urban crime behavior.  
-Although Uber is mentioned, the primary purpose here is to analyze **urban crime patterns** and cluster similar crime regions.
-""")
+This dataset, originally titled **"Uber and Urban Crime"**, was published on  
+**12 October 2019** by *Bryan Weber* on **Mendeley Data**.  
+
+Although associated with mobility (Uber) in its original context, the primary focus here is to examine  
+**urban crime patterns** and evaluate how crime types vary across different demographic environments.
+
+### 🧾 Crime Classification Framework
+
+For this study, crime indicators have been grouped into four structured categories:
+
+#### 1) **Violent Crimes**
+Crimes involving force or threat of force:
+- homicide  
+- kidnapping  
+- sex_forcible  
+- robbery  
+- assault  
+- weapon_violations  
+- human_traffic  
+
+#### 2) **Property Crimes**
+Crimes involving theft, damage, or unlawful property access:
+- burglary_bne  
+- larceny_theft  
+- motor_vehicle_theft  
+- arson  
+- stolen_property  
+- destruction_property  
+
+#### 3) **White-Collar / Financial Crimes**
+Non-violent, financially motivated offenses:
+- counterfit_forge  
+- fraud  
+- embezzelment  
+- extortion_blackmail  
+
+#### 4) **Moral / Social Offenses**
+Crimes involving moral, social, or public-order violations:
+- drug_offenses  
+- sex_nonforcible  
+- porn  
+- prostitution  
+- gambling  
+
+---
+    """)
+
 
 st.subheader("🧾 Dataset Preview")
 st.dataframe(df.head(), use_container_width=True)
-
 
 # ====================== SUMMARY METRICS ======================
 st.markdown("### 📊 Key Dataset Summary")
