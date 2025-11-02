@@ -37,12 +37,39 @@ st.dataframe(df.head(), use_container_width=True)
 # ====================== SUMMARY METRICS ======================
 st.markdown("### 📊 Key Dataset Summary")
 
+# ====================== SUMMARY METRICS ======================
+st.markdown("### 📊 Key Crime–Socioeconomic Overview")
+
 col1, col2, col3, col4 = st.columns(4)
 
-col1.metric("Crime Variables", "4", help="violent, property, white-collar, social crime", border=True)
-col2.metric("Demographic Dimensions", "3", help="Gender, Age, Education", border=True)
-col3.metric("Dataset Size", str(df.shape[0]), help="Total city-level observations analyzed", border=True)
-col4.metric("Education Groups", "4", help="High school below, high school, college, bachelor’s", border=True)
+col1.metric(
+    "Socioeconomic Factors",
+    "2",
+    help="Income level and poverty rate used as key predictors",
+    border=True
+)
+
+col2.metric(
+    "Crime Indicator",
+    "1",
+    help="Total offense count as the aggregate crime intensity measure",
+    border=True
+)
+
+col3.metric(
+    "City Categories",
+    "2",
+    help="Group I (Large urban cities) vs Group II (Smaller/medium cities)",
+    border=True
+)
+
+col4.metric(
+    "Total Observations",
+    str(df.shape[0]),
+    help="Number of city-level data points analyzed",
+    border=True
+)
+
 
 
 # ==============================================
