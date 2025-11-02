@@ -2,8 +2,17 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-st.set_page_config(page_title="Objective 2 — Group Comparisons and Chronotype", layout="wide")
-st.title("Objective 2 — Group Comparisons and Chronotype")
+# ---------------------------------------------------------
+# PAGE HEADER
+# ---------------------------------------------------------
+st.title("🚨 Socioeconomic Determinants of Crime: Income, Poverty & Offense Patterns Across Cities")
+
+st.markdown("""
+### 🎯 Research Objective  
+
+To investigate how income levels and poverty rates influence overall crime incidence across different city categories.  
+This analysis aims to determine whether socioeconomic disparities serve as predictors of crime intensity, providing insights into how economic conditions shape urban crime dynamics.
+""")
 
 # Load Data
 url = "https://raw.githubusercontent.com/s22a0064-AinMaisarah/Crime/refs/heads/main/df_crime_cleaned.csv"
@@ -62,7 +71,7 @@ st.plotly_chart(fig_poverty_offense, use_container_width=True)
 # ==============================================
 # ✅ Income vs City Category — Yellow Theme
 # ==============================================
-st.subheader("Income vs City Category (Yellow Theme)")
+st.subheader("Income vs City Category")
 
 fig_income_citycat = px.scatter(
     df,
@@ -72,7 +81,7 @@ fig_income_citycat = px.scatter(
     color_discrete_sequence=['gold', 'yellow'],
     hover_data=['city_cat', 'income', 'offense_count', 'violent_crime', 
                 'property_crime', 'whitecollar_crime', 'social_crime'],
-    title='Income vs City Category (Yellow Theme)',
+    title='Income vs City Category',
     labels={'city_cat': 'City Category (0: Group II, 1: Group I)'}
 )
 st.plotly_chart(fig_income_citycat, use_container_width=True)
@@ -80,7 +89,7 @@ st.plotly_chart(fig_income_citycat, use_container_width=True)
 # ==============================================
 # ✅ Poverty vs City Category — Yellow Theme
 # ==============================================
-st.subheader("Poverty % vs City Category (Yellow Theme)")
+st.subheader("Poverty % vs City Category")
 
 fig_poverty_citycat = px.scatter(
     df,
@@ -90,7 +99,7 @@ fig_poverty_citycat = px.scatter(
     color_discrete_sequence=['gold', 'yellow'],
     hover_data=['city_cat', 'poverty', 'offense_count', 'violent_crime', 
                 'property_crime', 'whitecollar_crime', 'social_crime'],
-    title='Poverty % vs City Category (Yellow Theme)',
+    title='Poverty % vs City Category',
     labels={'city_cat': 'City Category (0: Group II, 1: Group I)'}
 )
 st.plotly_chart(fig_poverty_citycat, use_container_width=True)
@@ -102,12 +111,75 @@ st.markdown("""
 ---
 ### 🧠 Final Insight & Interpretation
 
-Overall trends suggest clear socio-economic patterns in crime distribution:
+The visual analytics collectively highlight the critical role of socioeconomic conditions in shaping crime dynamics across urban areas. 
 
-- 🔼 **Higher poverty rates correlate with higher offense counts**, indicating economic stress plays a role in crime escalation.
-- 💰 **Cities with higher income levels tend to show lower crime activity**, especially for violent and property crimes.
-- 🏙️ **Group I cities (higher-tier cities)** show stronger variation — likely due to larger population density and social diversity.
-- 📉 **Income inequality appears significantly associated with crime**, supporting sociological crime theories (Strain Theory, Social Disorder Model).
+---
 
-These insights highlight the importance of **poverty reduction, economic opportunities, and targeted city-level interventions** to reduce crime levels and improve community well-being.
+#### 📍 **Scatter Plot: Income vs Offense Count**
+Cities with lower income levels demonstrate a noticeably higher number of recorded offenses.  
+This inverse relationship suggests that limited economic resources may contribute to increased social vulnerability, potentially driving individuals toward unlawful activities due to:
+
+- Financial stress and resource scarcity  
+- Lower employment opportunities  
+- Weak social support systems  
+
+This pattern aligns with Economic Strain Theory, which posits that restricted financial opportunities heighten crime risk.
+
+---
+
+#### 📍 **Scatter Plot: Poverty Rate vs Offense Count**
+A strong positive correlation is observed between poverty rate and offense rate across both city categories.  
+Cities facing elevated poverty levels report substantially higher crime occurrences.  
+
+Possible contributing factors include:
+
+- Inequality-induced social tension  
+- Limited access to education and social services  
+- Structural disadvantages in high-poverty communities  
+
+This supports Social Disorganization Theory, emphasizing that community instability drives crime.
+
+---
+
+#### 📍 **Income vs City Category (Yellow Theme)**
+Higher-tier cities (**Group I**) exhibit greater income variation, reflecting diverse economic segments within larger urban environments.  
+
+- Group I: Broader income range — mixed affluent + vulnerable populations  
+- Group II: More income homogeneity — typically medium- or smaller-scale cities  
+
+This variance underscores the urban economic diversity often associated with crime concentration pockets.
+
+---
+
+#### 📍 **Poverty vs City Category **
+Group I cities show more pronounced poverty variation compared to Group II.  
+This suggests that large metropolitan regions may experience wider socioeconomic inequality, which can:
+
+- Increase crime concentration in marginalized districts  
+- Create high-risk zones linked to uneven wealth distribution  
+
+Urban inequality remains a central indicator of crime proliferation.
+
+---
+
+### 🎯 **Key Takeaways**
+- Socioeconomic deprivation strongly correlates with higher crime levels
+- Income inequality, not just average income, influences crime patterns
+- Urban complexity in larger cities amplifies socioeconomic disparities
+- Reducing poverty and expanding economic opportunities is essential for crime prevention strategies
+
+---
+
+### ✅ Policy & Research Implications
+These findings reinforce the need for:
+
+- Targeted poverty alleviation programs
+- Economic empowerment and job access initiatives
+- Strengthened urban social services and education
+- Urban planning strategies that reduce inequality hotspots
+
+Further research may integrate time-series crime trends, migration indicators, and policing resource distribution for deeper causal insights.
+
+---
 """)
+
