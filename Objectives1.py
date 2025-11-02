@@ -6,81 +6,92 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans
 
-st.set_page_config(page_title="Crime Clustering Dashboard", layout="wide") 
+# ---------------------------------------------------------
+# PAGE SETTINGS
+# ---------------------------------------------------------
+st.set_page_config(
+    page_title="Crime Clustering Dashboard",
+    page_icon="📊",
+    layout="wide"
+)
 
-# TITLE
-st.title("📊 Crime Pattern Clustering & PCA Visualization Dashboard")
+# Sidebar (future navigation)
+with st.sidebar:
+    st.title("📊 Crime Dashboard")
+    st.write("Explore clustering patterns & PCA insights")
+    st.markdown("---")
+    st.caption("Developed by Ain Maisarah 🌟")
 
-# OBJECTIVE
+# ---------------------------------------------------------
+# PAGE HEADER
+# ---------------------------------------------------------
+st.title("🚨 Crime Pattern Clustering & PCA Dashboard")
+
 st.markdown("""
 ### 🎯 Objective  
-The objective of using K-Means clustering is to group cities into three distinct clusters 
-based on their crime profiles including violent, property, white-collar, and social crimes. 
-This allows cities with similar crime patterns to be categorized together, supporting clearer 
-comparisons across locations and enabling targeted crime-prevention strategies.
+Use **K-Means clustering** to group cities based on crime behavior patterns 
+(violent, property, white-collar, social).  
+This helps detect crime similarities, identify high-risk zones, and support data-driven prevention strategies.
 """)
 
-# --- Load Dataset ---
+# ---------------------------------------------------------
+# LOAD DATA
+# ---------------------------------------------------------
 url = "https://raw.githubusercontent.com/s22a0064-AinMaisarah/Crime/refs/heads/main/df_crime_cleaned.csv"
 df = pd.read_csv(url)
 
 st.success("✅ Dataset Loaded Successfully")
-st.dataframe(df.head())
 
-# ================= Dataset Information =================
-st.subheader("📂 Dataset Description")
-
-st.write("""
-This dataset, originally titled **'Uber and Urban Crime'** and published on **12 October 2019** by *Bryan Weber* on **Mendeley Data**, 
-contains urban crime statistics across U.S. cities. Although it references Uber activity, this dashboard focuses specifically on the **crime variables**.
-
-The analysis emphasizes crime patterns, category distribution, and clustering behavior across regions, enabling 
-data-driven insights into crime groupings and regional similarities.
+# Dataset Info
+with st.expander("📂 About This Dataset"):
+    st.write("""
+This dataset, originally titled **"Uber and Urban Crime"** and published on **12 Oct 2019** by *Bryan Weber (Mendeley)*,
+focuses on urban crime behavior.  
+Although Uber is mentioned, the primary purpose here is to analyze **urban crime patterns** and cluster similar crime regions.
 """)
 
-# --- Features ---
+st.subheader("🧾 Dataset Preview")
+st.dataframe(df.head(), use_container_width=True)
+
+# ---------------------------------------------------------
+# FEATURES & SCALING
+# ---------------------------------------------------------
 features = ['violent_crime', 'property_crime', 'whitecollar_crime', 'social_crime']
-X = df[features]
-
-# --- Scaling ---
 scaler = StandardScaler()
-X_scaled = scaler.fit_transform(X)
+X_scaled = scaler.fit_transform(df[features])
 
-# ================= SUMMARY METRICS =================
-st.subheader("📌 Summary Metrics")
-
+# ---------------------------------------------------------
+# KPI METRICS
+# ---------------------------------------------------------
+st.markdown("### 📊 Key Dataset Metrics")
 col1, col2, col3, col4 = st.columns(4)
 
 col1.metric(
-    label="Crime Features",
-    value="4",
-    help="Number of crime variables used for clustering: violent, property, white-collar, social",
-    border=True
+    "Crime Features Used", "4",
+    help="Violent, Property, White-Collar, Social"
 )
 
 col2.metric(
-    label="Optimal Clusters (k)",
-    value="3",
-    help="K-Means clustering determined 3 optimal crime pattern clusters",
-    border=True
+    "Optimal Clusters (k)", "3",
+    help="Determined using elbow method"
 )
 
 col3.metric(
-    label="PCA Components",
-    value="2",
-    help="2 principal components used for dimensionality reduction and visualization",
-    border=True
+    "PCA Components", "2",
+    help="Dimensionality reduction"
 )
 
 col4.metric(
-    label="Dataset Records",
-    value=str(df.shape[0]),
-    help="Total number of locations/rows analyzed in the dataset",
-    border=True
+    "Total Records", f"{df.shape[0]}",
+    help="Total cities/locations"
 )
 
-# =============== 1️⃣ ELBOW METHOD ===============
-st.subheader("1️⃣ Elbow Method — Finding Best Number of Clusters")
+st.markdown("---")
+
+# ---------------------------------------------------------
+# 1️⃣ ELBOW METHOD
+# ---------------------------------------------------------
+st.header("1️⃣ Elbow Method — Optimal Clusters")
 
 wcss = []
 for k in range(2, 10):
@@ -89,22 +100,22 @@ for k in range(2, 10):
     wcss.append(kmeans.inertia_)
 
 fig_elbow = px.line(
-    x=range(2, 10), 
-    y=wcss, 
-    markers=True, 
-    title="Elbow Method for Optimal k",
-    labels={"x": "Number of Clusters (k)", "y": "WCSS"}
+    x=range(2, 10), y=wcss, markers=True,
+    title="Elbow Curve for Optimal k",
+    labels={"x": "Cluster Count (k)", "y": "WCSS"}
 )
 st.plotly_chart(fig_elbow, use_container_width=True)
 
-st.info("📍 *The elbow point shows k = 3 is optimal — indicating three main crime patterns.*")
+st.info("✅ *k = 3 is optimal — Meaning three distinct crime pattern groups exist.*")
 
-# Choose k=3
+# Train final model
 kmeans = KMeans(n_clusters=3, random_state=42, n_init=10)
 df['crime_cluster'] = kmeans.fit_predict(X_scaled)
 
-# =============== 2️⃣ PCA VISUALIZATION ===============
-st.subheader("2️⃣ PCA Visualization — Crime Pattern Groups")
+# ---------------------------------------------------------
+# 2️⃣ PCA VISUALIZATION
+# ---------------------------------------------------------
+st.header("2️⃣ PCA Cluster Visualization")
 
 pca = PCA(n_components=2)
 pca_data = pca.fit_transform(X_scaled)
@@ -112,47 +123,48 @@ df['PC1'], df['PC2'] = pca_data[:, 0], pca_data[:, 1]
 
 fig_pca = px.scatter(
     df, x='PC1', y='PC2', color='crime_cluster',
-    hover_data=['city_cat','state','violent_crime','property_crime','whitecollar_crime','social_crime'],
+    hover_data=['city_cat','state'] + features,
     title="PCA Scatter Plot — Crime Clusters"
 )
 st.plotly_chart(fig_pca, use_container_width=True)
 
-st.info("📍 *PCA confirms strong separation between clusters, revealing unique crime behavior patterns.*")
+st.info("📌 *PCA confirms clear separation between high, medium & low crime regions.*")
 
-# =============== 3️⃣ CLUSTER PROFILE BAR CHART ===============
-st.subheader("3️⃣ Crime Type Profile by Cluster")
+# ---------------------------------------------------------
+# 3️⃣ CLUSTER PROFILE
+# ---------------------------------------------------------
+st.header("3️⃣ Crime Type Profile by Cluster")
 
 cluster_profile = df.groupby('crime_cluster')[features].mean().reset_index()
-cluster_profile_melted = cluster_profile.melt(
-    id_vars='crime_cluster', 
-    var_name='Crime Type', 
+cluster_profile = cluster_profile.melt(
+    id_vars='crime_cluster', var_name='Crime Type',
     value_name='Average Crime Score'
 )
 
 fig_bar = px.bar(
-    cluster_profile_melted,
-    x='Crime Type', y='Average Crime Score',
+    cluster_profile, x='Crime Type', y='Average Crime Score',
     color='crime_cluster', barmode='group',
-    title='Average Crime Scores per Cluster',
+    title="Average Crime Scores by Cluster"
 )
 st.plotly_chart(fig_bar, use_container_width=True)
 
-st.info("📍 *Each cluster shows different dominant crime types, highlighting varied regional crime patterns.*")
+st.success("🎉 Visualizations Generated Successfully")
 
-st.success("✅ All visualizations generated successfully!")
-
-# =============== INTERPRETATION ===============
+# ---------------------------------------------------------
+# INSIGHTS
+# ---------------------------------------------------------
 st.markdown("""
 ---
+### 📌 Key Insights
 
-### 🧐 Interpretation & Discussion  
+| Crime Cluster | Description |
+|---|---|
+| **Cluster 0** | High crime region — high violent & property crime |
+| **Cluster 1** | Medium crime distribution across all types |
+| **Cluster 2** | Low-crime region — safe zone |
 
-The clustering analysis reveals **three distinct crime behavior patterns** across cities.  
-One cluster represents **high-crime zones**, particularly in violent and property crime.  
-Another shows **moderate and balanced crime levels**, while the final cluster consists of **low-crime cities**.
-
-The PCA visualization validates meaningful separation between crime groups, demonstrating clear structural patterns within the data.  
-These insights provide a foundation for policymakers and law enforcement to allocate resources, monitor high-risk regions, and plan targeted crime-reduction interventions.
+🛑 Areas with high violent/property crime may require **extra policing & surveillance**  
+✅ Low-crime areas show **stable urban safety behavior**
 
 ---
 """)
