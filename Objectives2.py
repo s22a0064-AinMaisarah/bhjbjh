@@ -21,6 +21,17 @@ df = pd.read_csv(url)
 st.success("✅ Dataset Loaded")
 st.dataframe(df.head())
 
+# Dataset Info
+with st.expander("📂 About This Dataset"):
+    st.write("""
+This dataset, originally titled **"Uber and Urban Crime"** and published on **12 Oct 2019** by *Bryan Weber (Mendeley)*,
+focuses on urban crime behavior.  
+Although Uber is mentioned, the primary purpose here is to analyze **urban crime patterns** and cluster similar crime regions.
+""")
+
+st.subheader("🧾 Dataset Preview")
+st.dataframe(df.head(), use_container_width=True)
+
 # ====================== SUMMARY METRICS ======================
 st.markdown("### 📊 Key Dataset Summary")
 
